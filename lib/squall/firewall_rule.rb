@@ -59,5 +59,27 @@ module Squall
     def delete(vm_id, id)
       request(:delete, "/virtual_machines/#{vm_id}/firewall_rules/#{id}.json")
     end
+
+    # Apply firewall rules for a VM
+    #
+    # ==== Params
+    #
+    # * +vm_id+ - ID of the virtual machine
+    def apply(vm_id)
+      request(:post, "/virtual_machines/#{vm_id}/update_firewall_rules.json")
+    end
+
+    # Move firewall rule position (up or down)
+    #
+    # ===== Params
+    #
+    # * +vm_id+ - ID of the virtual machine
+    # * +id+ - ID of the firewall rule
+    #
+    # ===== Options
+    # * +position+ - specify the position change (up or down)
+    def move(vm_id, id, options={})
+      request(:get, "/virtual_machines/#{vm_id}/firewall_rules/#{id}", default_params(options))
+    end
   end
 end
